@@ -1,0 +1,113 @@
+# =============================================================================
+# MissionPilot — .gitignore
+#
+# Hypothèse d'organisation : structure "drupal/recommended-project"
+#   - racine web : web/
+#   - configuration exportée : config/  (VERSIONNÉE, ne pas ignorer)
+#   - modules et thèmes du projet : web/modules/custom, web/themes/custom (VERSIONNÉS)
+# À ajuster si l'organisation retenue à l'implémentation diffère.
+# =============================================================================
+
+# --- Secrets et configuration locale -----------------------------------------
+# Fichiers d'environnement réels : jamais versionnés.
+.env
+.env.*
+!.env.example
+!.env.*.example
+!.env.dist
+
+# Clés, certificats et identifiants
+*.pem
+*.key
+*.crt
+*.p12
+auth.json
+
+# --- Composer ----------------------------------------------------------------
+# composer.json et composer.lock restent versionnés.
+/vendor/
+
+# --- Drupal : code géré par Composer -----------------------------------------
+/web/core/
+/web/modules/contrib/
+/web/themes/contrib/
+/web/profiles/contrib/
+/web/libraries/
+/drush/Commands/contrib/
+
+# --- Drupal : fichiers générés et réglages locaux ----------------------------
+# settings.php reste versionné et doit lire les secrets depuis l'environnement.
+/web/sites/*/settings.local.php
+/web/sites/*/services.local.yml
+/web/sites/*/local.services.yml
+/web/sites/*/files/
+/web/sites/*/private/
+/web/sites/simpletest/
+# Fichiers privés et temporaires hors racine web
+/private/
+/tmp/
+
+# --- Node.js / npm -----------------------------------------------------------
+# package.json et package-lock.json restent versionnés.
+node_modules/
+npm-debug.log*
+.npm/
+
+# --- Docker ------------------------------------------------------------------
+# Les fichiers Compose du projet restent versionnés ; seules les surcharges
+# locales sont ignorées.
+docker-compose.override.yml
+compose.override.yml
+compose.override.yaml
+# Volumes ou données persistées montés localement
+/.docker/data/
+
+# --- Bases de données et sauvegardes -----------------------------------------
+*.sql
+*.sql.gz
+*.dump
+
+# --- Tests et outils qualité -------------------------------------------------
+# phpunit.xml.dist reste versionné ; phpunit.xml est une surcharge locale.
+/phpunit.xml
+.phpunit.cache/
+.phpunit.result.cache
+/coverage/
+/build/
+.phpcs-cache
+.php-cs-fixer.cache
+.phpstan-cache/
+.eslintcache
+.stylelintcache
+/test-results/
+/playwright-report/
+
+# --- Caches et fichiers temporaires ------------------------------------------
+.cache/
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# --- Journaux ----------------------------------------------------------------
+*.log
+/logs/
+
+# --- Éditeurs et IDE ---------------------------------------------------------
+# Les réglages VS Code partagés restent versionnés ; .devcontainer/ aussi.
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/launch.json
+!.vscode/tasks.json
+.idea/
+*.code-workspace
+
+# --- Claude Code : réglages personnels ---------------------------------------
+.claude/settings.local.json
+
+# --- Systèmes d'exploitation -------------------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
